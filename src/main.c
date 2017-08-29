@@ -32,8 +32,8 @@ main(void)
 
 	/* setcolor(1, 0xf92672); */
 
-	for(i = 0; i < 640; i++)
-		for(j = 0; j < 400; j++)
+	for(j = 0; j < 400; j++)
+		for(i = 0; i < 640; i++)
 			drawpixel(i, j, i % 256);
 
 	return 0;

@@ -37,7 +37,6 @@ void
 drawpixel(int x, int y, unsigned char color)
 {
 	unsigned long pos = 640L * y + x;
-	unsigned int bank = pos >> 15;
-	*MMIO_BANK1 = bank;
-	PIXELS[pos & ((1<<15)-1)] = color;
+	*MMIO_BANK1 = (unsigned int)(pos >> 15);
+	PIXELS[pos & 32767] = color;
 }
