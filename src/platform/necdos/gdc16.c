@@ -33,11 +33,11 @@ drawpixel(int x, int y, unsigned char color)
 	unsigned long pos = 640L * y + x;
 
 	if(color & 1<<0)
-		PLANE0[pos/CHAR_BIT/(sizeof *PLANE0)] |= 1<<(CHAR_BIT-1)>>(pos%(CHAR_BIT * sizeof *PLANE0));
+		PLANE0[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
 	if(color & 1<<1)
-		PLANE1[pos/CHAR_BIT/(sizeof *PLANE1)] |= 1<<(CHAR_BIT-1)>>(pos%(CHAR_BIT * sizeof *PLANE1));
+		PLANE1[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
 	if(color & 1<<2)
-		PLANE2[pos/CHAR_BIT/(sizeof *PLANE2)] |= 1<<(CHAR_BIT-1)>>(pos%(CHAR_BIT * sizeof *PLANE2));
+		PLANE2[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
 	if(color & 1<<3)
-		PLANE3[pos/CHAR_BIT/(sizeof *PLANE3)] |= 1<<(CHAR_BIT-1)>>(pos%(CHAR_BIT * sizeof *PLANE3));
+		PLANE3[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
 }
