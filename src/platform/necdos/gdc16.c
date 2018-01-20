@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <limits.h>
 #include <dos.h>
 
 unsigned char far *PLANE0 = (unsigned char far *)MK_FP(0xa800, 0);
@@ -33,11 +32,11 @@ drawpixel(int x, int y, unsigned char color)
 	unsigned long pos = 640L * y + x;
 
 	if(color & 1<<0)
-		PLANE0[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
+		PLANE0[pos/8] |= 128>>(pos%8);
 	if(color & 1<<1)
-		PLANE1[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
+		PLANE1[pos/8] |= 128>>(pos%8);
 	if(color & 1<<2)
-		PLANE2[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
+		PLANE2[pos/8] |= 128>>(pos%8);
 	if(color & 1<<3)
-		PLANE3[pos/CHAR_BIT] |= 1<<(CHAR_BIT-1)>>(pos%CHAR_BIT);
+		PLANE3[pos/8] |= 128>>(pos%8);
 }
