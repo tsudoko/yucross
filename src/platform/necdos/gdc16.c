@@ -5,6 +5,7 @@ unsigned char far *PLANE0 = (unsigned char far *)MK_FP(0xa800, 0);
 unsigned char far *PLANE1 = (unsigned char far *)MK_FP(0xb000, 0);
 unsigned char far *PLANE2 = (unsigned char far *)MK_FP(0xb800, 0);
 unsigned char far *PLANE3 = (unsigned char far *)MK_FP(0xe000, 0);
+const int platform_colors = 16;
 
 void
 platform_init(void)

@@ -13,6 +13,7 @@
 
 unsigned char far *PIXELS     = (unsigned char far *)0xa8000000;
 unsigned int  far *MMIO_BANK1 = (unsigned int far *) 0xe0000004;
+const int platform_colors = 256;
 
 void
 platform_init(void)
