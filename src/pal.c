@@ -16,10 +16,10 @@ loadpal(char *path)
 	long col = 0;
 	FILE *f = fopen(path, "rb");
 
-	if(fread(buf, 1, 4, f) != 4)
+	if(fread(buf, 1, strlen("pal "), f) != 4)
 		return -1;
 
-	if(memcmp(buf, "pal ", 4) != 0) /* bad magic */
+	if(memcmp(buf, "pal ", strlen("pal ")) != 0) /* bad magic */
 		return -1;
 
 	do {
@@ -39,12 +39,8 @@ loadpal(char *path)
 		buf[blen++] = '\0';
 		col = strtol(buf, NULL, 16);
 		blen = 0;
-		/* fscanf(f, "0x%06x\n", &col);
-		fscanf(f, "%i\n", &col); */
-		printf("doing color %x\n", col);
 		if(curcol) /* color 0 is transparent */
 			setcolor(curcol, col);
-		/* assert(col != -1); */
 		printf("ftell %d\n", ftell(f));
 		curcol++;
 	} while(curcol < colors);

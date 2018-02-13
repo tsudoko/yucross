@@ -37,12 +37,10 @@ loadspr(char *path, Sprite *s)
 					if(bufl)
 						buf[bufl] = '\0';
 				} else {
-					printf("pixel (%d, %d) '%c'\n", x, y, buf[bufl]);
 					bufl++;
 				}
 			} while(!bufl && buf[bufl]);
-			printf("process'd: %d\n", atoi(buf));
-			
+
 			s->data[y*s->w + x] = atoi(buf);
 		}
 	}

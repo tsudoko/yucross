@@ -1,6 +1,4 @@
-#include <stdlib.h>
-
-#include "stage.h"
+#include "stuff.h"
 
 Stage *
 newstage(int size)

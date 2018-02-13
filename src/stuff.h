@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 enum {
@@ -11,9 +11,17 @@ enum {
 };
 
 typedef struct {
+	char *tiles;
+	int   size;
+} Stage;
+
+typedef struct {
 	int w, h;
 	unsigned char *data;
 } Sprite;
+
+Stage *newstage(int size);
+void delstage(Stage *s);
 
 int loadpal(char *);
 int loadspr(char *, Sprite *);
