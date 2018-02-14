@@ -7,6 +7,7 @@
 
 int mx, my;
 char mbut;
+char running;
 
 #define screenw 640
 #define screenh 400
@@ -117,6 +118,25 @@ stageclick(Stage *stage, int x, int y)
 	*tile = *tile ? 0 : 1; /* XXX */
 }
 
+int
+won(Stage *stage)
+{
+	int i;
+	for(i = 0; i < stage->w*stage->h; i++)
+		if(stage->tiles[i] != stage->pattern[i])
+			return 0;
+
+	return !0;
+}
+
+void
+deinit(Stage *stage) {
+	delstage(stage);
+	/* platform_deinit(); */
+	mousedeinit();
+	running = 0;
+}
+
 void
 tick(Stage *s)
 {
@@ -129,6 +149,10 @@ tick(Stage *s)
 	if(mbut) {
 		printf("mouse click %d (%d, %d)\n", mbut, mx, my);
 		stageclick(s, mx, my);
+		if(won(s)) {
+			printf("stage clear\n");
+			deinit(s);
+		}
 	}
 }
 
@@ -140,6 +164,7 @@ main(void)
 	int colors;
 	int i;
 
+	running = 1;
 	platform_init();
 	mouseinit();
 	stage = newstage(12, 12);
@@ -151,9 +176,6 @@ main(void)
 	for(i = 0; i < stage->w*stage->h; i++)
 		stage->pattern[i] = rand()%2;
 
-	for(i = 0; i < stage->w*stage->h; i++)
-		stage->tiles[i] = stage->pattern[i];
-
 	stage->x = screenw/2 - (stage->w*tiles->h)/2;
 	stage->y = screenh/2 - (stage->h*tiles->h)/2;
 
@@ -163,13 +185,11 @@ main(void)
 	/* mousecallback(tick); */
 
 	/* while(platform_event())? */
-	for(;;) {
+	while(running) {
 		tick(stage);
 		stagedraw(stage, tiles);
 	}
 
-	delstage(stage);
-	/* platform_deinit(); */
-	mousedeinit();
+	deinit(stage);
 	return 0;
 }
