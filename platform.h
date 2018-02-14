@@ -1,4 +1,6 @@
 extern const int platform_colors;
+extern const int platform_screenw;
+extern const int platform_screenh;
 
 void platform_init(void);
 void platform_deinit(void);

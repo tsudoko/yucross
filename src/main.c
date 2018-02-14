@@ -9,9 +9,6 @@ int mx, my;
 char mbut;
 char running;
 
-#define screenw 640
-#define screenh 400
-
 void
 drawhintrow(Stage *stage, Sprite *tiles, int *hints, int n, int y)
 {
@@ -176,8 +173,8 @@ main(void)
 	for(i = 0; i < stage->w*stage->h; i++)
 		stage->pattern[i] = rand()%2;
 
-	stage->x = screenw/2 - (stage->w*tiles->h)/2;
-	stage->y = screenh/2 - (stage->h*tiles->h)/2;
+	stage->x = platform_screenw/2 - (stage->w*tiles->h)/2;
+	stage->y = platform_screenh/2 - (stage->h*tiles->h)/2;
 
 	hintdraw(stage, tiles);
 	stagedraw(stage, tiles);
