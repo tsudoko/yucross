@@ -41,7 +41,6 @@ loadpal(char *path)
 		blen = 0;
 		if(curcol) /* color 0 is transparent */
 			setcolor(curcol, col);
-		printf("ftell %d\n", ftell(f));
 		curcol++;
 	} while(curcol < colors);
 

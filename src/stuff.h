@@ -11,8 +11,10 @@ enum {
 };
 
 typedef struct {
+	int x, y;
 	int w, h;
 	char *tiles;
+	char *pattern;
 } Stage;
 
 typedef struct {

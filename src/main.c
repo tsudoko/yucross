@@ -1,4 +1,5 @@
-#include <machine.h>
+#include <assert.h>
+#include <time.h>
 
 #include "platform.h"
 
@@ -10,19 +11,86 @@ char mbut;
 #define screenw 640
 #define screenh 400
 
+void
+drawhintrow(Stage *stage, Sprite *tiles, int *hints, int n, int y)
+{
+	int i, x1;
+	x1 = stage->x - tiles->h - n*tiles->h;
+	assert(x1 >= 0);
+
+	for(i = 0; i < n; i++) {
+		drawtile(x1 + i*16, stage->y + y*16, tiles, SPR_GUIDE);
+		drawtile(x1 + i*16, stage->y + y*16, tiles, SPR_NUMBER + hints[i]);
+	}
+}
+
+void
+drawhintcol(Stage *stage, Sprite *tiles, int *hints, int n, int x)
+{
+	int i, y1;
+	y1 = stage->y - tiles->h - n*tiles->h;
+	assert(y1 >= 0);
+
+	for(i = 0; i < n; i++) {
+		drawtile(stage->x + x*16, y1 + i*16, tiles, SPR_GUIDE);
+		drawtile(stage->x + x*16, y1 + i*16, tiles, SPR_NUMBER + hints[i]);
+	}
+}
+
+int
+hintdraw(Stage *stage, Sprite *tiles)
+{
+	int ir = 0;
+	int x, y;
+	char cons = 0;
+	int *row = malloc(sizeof (int) * stage->y);
+
+	for(y = 0; y < stage->h; y++) {
+		ir = 0;
+		row[ir] = 0;
+		cons = 0;
+		for(x = 0; x < stage->w; x++) {
+			if(stage->pattern[y*stage->w + x]) {
+				row[ir]++;
+				cons = 1;
+			} else if(cons) {
+				cons = 0;
+				ir++;
+				row[ir] = 0;
+			}
+		}
+		drawhintrow(stage, tiles, row, ir+(row[ir] ? 1 : 0), y);
+	}
+
+	for(x = 0; x < stage->w; x++) {
+		ir = 0;
+		row[ir] = 0;
+		cons = 0;
+		for(y = 0; y < stage->h; y++) {
+			if(stage->pattern[y*stage->w + x]) {
+				row[ir]++;
+				cons = 1;
+			} else if(cons) {
+				cons = 0;
+				ir++;
+				row[ir] = 0;
+			}
+		}
+		drawhintcol(stage, tiles, row, ir+(row[ir] ? 1 : 0), x);
+	}
+
+	free(row);
+}
+
 int
 stagedraw(Stage *stage, Sprite *tiles)
 {
 
-	int x1, y1;
 	int x, y;
-
-	x1 = screenw/2 - (stage->w*tiles->h)/2;
-	y1 = screenh/2 - (stage->h*tiles->h)/2;
 
 	for(y = 0; y < stage->h; y++) {
 		for(x = 0; x < stage->w; x++) {
-			drawtile(x1+(x*tiles->h), y1+(y*tiles->h), tiles, stage->tiles[y*stage->w + x] ? 1 : 0);
+			drawtile(stage->x+(x*tiles->h), stage->y+(y*tiles->h), tiles, stage->tiles[y*stage->w + x] ? 1 : 0);
 		}
 	}
 }
@@ -32,17 +100,12 @@ stageclick(Stage *stage, int x, int y)
 {
 	int tilesize = 16; /* XXX */
 	char *tile;
-	int x1, y1;
 
-	/* TODO: keep stage position in Stage? */
-	x1 = screenw/2 - (stage->w*tilesize)/2;
-	y1 = screenh/2 - (stage->h*tilesize)/2;
-
-	if(x < x1 || y < y1)
+	if(x < stage->x || y < stage->y)
 		return;
 
-	x -= x1;
-	y -= y1;
+	x -= stage->x;
+	y -= stage->y;
 
 	x /= tilesize; /* XXX */
 	y /= tilesize; /* XXX */
@@ -51,7 +114,7 @@ stageclick(Stage *stage, int x, int y)
 		return;
 
 	tile = &stage->tiles[y*stage->w + x];
-	*tile = *tile ? 0 : 1;
+	*tile = *tile ? 0 : 1; /* XXX */
 }
 
 void
@@ -75,17 +138,26 @@ main(void)
 	Stage *stage;
 	Sprite *tiles;
 	int colors;
+	int i;
+
 	platform_init();
 	mouseinit();
 	stage = newstage(12, 12);
 	colors = loadpal("res\\pink.pal");
 	loadspr("res\\tile.spr", tiles);
 
-	drawtile(120, 71, tiles, 2);
-	drawtile(125, 71, tiles, 2);
-	drawtile(127, 71, tiles, 2);
-	drawtile(128, 71, tiles, 2);
+	srand(time(NULL));
 
+	for(i = 0; i < stage->w*stage->h; i++)
+		stage->pattern[i] = rand()%2;
+
+	for(i = 0; i < stage->w*stage->h; i++)
+		stage->tiles[i] = stage->pattern[i];
+
+	stage->x = screenw/2 - (stage->w*tiles->h)/2;
+	stage->y = screenh/2 - (stage->h*tiles->h)/2;
+
+	hintdraw(stage, tiles);
 	stagedraw(stage, tiles);
 
 	/* mousecallback(tick); */
