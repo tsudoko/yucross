@@ -21,8 +21,15 @@ platform_init(void)
 	outp8(0x6a, 0x07);
 	outp8(0x6a, 0x21);
 
-	/*outp8(0x62, 0x0c); /* stop text */
+	outp8(0x62, 0x0c); /* stop text */
 	outp8(0xa2, 0x0d); /* start graphics */
+}
+
+void
+platform_deinit(void)
+{
+	outp8(0xa2, 0x0c); /* stop graphics */
+	outp8(0x62, 0x0d); /* start text */
 }
 
 void

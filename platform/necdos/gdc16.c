@@ -14,8 +14,15 @@ platform_init(void)
 	outp8(0x68, 1<<3|0); /* mode F/F bit 3 - column width (80 columns) */
 	/* outp8(0xa2, 0x4b); /* 400 line mode */
 
-	/*outp8(0x62, 0x0c); /* stop text */
+	outp8(0x62, 0x0c); /* stop text */
 	outp8(0xa2, 0x0d); /* start graphics */
+}
+
+void
+platform_deinit(void)
+{
+	outp8(0xa2, 0x0c); /* stop graphics */
+	outp8(0x62, 0x0d); /* start text */
 }
 
 void

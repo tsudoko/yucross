@@ -132,7 +132,7 @@ won(Stage *stage)
 void
 deinit(Stage *stage) {
 	delstage(stage);
-	/* platform_deinit(); */
+	platform_deinit();
 	mousedeinit();
 	running = 0;
 }
