@@ -1,11 +1,12 @@
 #include "stuff.h"
 
 Stage *
-newstage(int size)
+newstage(int w, int h)
 {
 	Stage *s = malloc(sizeof(Stage));
-	s->tiles = calloc(size, 1);
-	s->size  = size;
+	s->tiles = calloc(w*h, 1);
+	s->w = w;
+	s->h = h;
 
 	if(s->tiles == NULL)
 		return NULL;

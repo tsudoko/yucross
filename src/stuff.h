@@ -11,8 +11,8 @@ enum {
 };
 
 typedef struct {
+	int w, h;
 	char *tiles;
-	int   size;
 } Stage;
 
 typedef struct {
@@ -20,7 +20,7 @@ typedef struct {
 	unsigned char *data;
 } Sprite;
 
-Stage *newstage(int size);
+Stage *newstage(int w, int h);
 void delstage(Stage *s);
 
 int loadpal(char *);

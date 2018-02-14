@@ -17,15 +17,13 @@ loadspr(char *path, Sprite *s)
 		return -1;
 
 	fscanf(f, "%d %d ", &(s->w), &(s->h));
-	assert(s->w && s->h);
 	printf("%s: %dx%d\n", path, s->w, s->h);
+	assert(s->w && s->h);
 	s->data = malloc(s->w*s->h);
 
 	do {
 		buf[0] = fgetc(f);
 	} while(buf[0] != '\n');
-
-	printf("past the header\n");
 
 	for(y = 0; y < s->h; y++) {
 		for(x = 0; x < s->w; x++) {
