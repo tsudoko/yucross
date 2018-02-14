@@ -26,6 +26,9 @@ drawtile(int sx, int sy, Sprite *tiles, int id)
 
 	for(y = 0; y < tilepx; y++) {
 		for(x = 0; x < tilepx; x++) {
+			if(!tiles->data[y*tiles->w + x1 + x])
+				continue;
+
 			drawpixel(sx+x, sy+y, tiles->data[y*tiles->w + x1 + x]);
 		}
 	}
