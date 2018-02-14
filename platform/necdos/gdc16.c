@@ -34,10 +34,18 @@ drawpixel(int x, int y, unsigned char color)
 
 	if(color & 1<<0)
 		PLANE0[pos/8] |= 128>>(pos%8);
+	else
+		PLANE0[pos/8] &= ~(128>>(pos%8));
 	if(color & 1<<1)
 		PLANE1[pos/8] |= 128>>(pos%8);
+	else
+		PLANE1[pos/8] &= ~(128>>(pos%8));
 	if(color & 1<<2)
 		PLANE2[pos/8] |= 128>>(pos%8);
+	else
+		PLANE2[pos/8] &= ~(128>>(pos%8));
 	if(color & 1<<3)
 		PLANE3[pos/8] |= 128>>(pos%8);
+	else
+		PLANE3[pos/8] &= ~(128>>(pos%8));
 }
