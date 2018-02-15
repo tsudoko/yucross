@@ -43,7 +43,7 @@ mousestat(int *x, int *y, char *down)
 		*y = regs.x.dx;
 
 	if(down)
-		*down = ((regs.x.bx & 1) << 1) | regs.x.ax & 1;
+		*down = ((regs.x.bx & 1) << 2) | regs.x.ax & 1;
 }
 
 void
