@@ -172,11 +172,12 @@ main(void)
 	int i;
 
 	running = 1;
+	platform_init();
 	if(mouseinit() < 0) {
 		fprintf(stderr, "mouse initialization failed\n");
+		platform_deinit();
 		return -1;
 	}
-	platform_init();
 
 	stage = newstage(12, 12);
 	colors = loadpal("res/pink.pal");

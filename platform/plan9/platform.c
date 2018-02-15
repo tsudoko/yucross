@@ -40,10 +40,11 @@ void mousedeinit(void) {}
 void mousecallback(void (*f)(void)) {}
 int keypoll(void) { return 0; }
 
-void
+int
 mouseinit(void)
 {
 	einit(Emouse);
+	return 0;
 }
 
 void
