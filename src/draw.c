@@ -1,4 +1,4 @@
-#include "platform.h"
+#include "../platform.h"
 #include "stuff.h"
 
 /* TODO: split into drawbg, drawtile */

@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <time.h>
 
-#include "platform.h"
+#include "../platform.h"
 
 #include "stuff.h"
 
