@@ -154,6 +154,8 @@ tick(Stage *s, Sprite *tiles)
 	mousestat(&mx, &my, &mbut);
 
 	if(mbut) {
+		if(mbut & 4) /* debug exit */
+			deinit(s);
 		/* printf("mouse click %d (%d, %d)\n", mbut, mx, my); */
 		stageclick(s, tiles, mx, my);
 		if(won(s)) {
