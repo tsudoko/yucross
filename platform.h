@@ -4,6 +4,7 @@ extern const int platform_screenh;
 
 void platform_init(void);
 void platform_deinit(void);
+void platform_yield(void);
 void drawpixel(int x, int y, unsigned char color);
 void setcolor(unsigned char index, unsigned long color);
 int mouseinit(void);

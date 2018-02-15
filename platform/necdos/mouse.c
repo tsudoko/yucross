@@ -2,6 +2,8 @@
 
 #include "../../platform.h"
 
+void platform_yield(void) {}
+
 /* only the NEC mouse driver is supported */
 
 int

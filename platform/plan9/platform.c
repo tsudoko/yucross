@@ -31,8 +31,8 @@ platform_init(void)
 
 void
 platform_yield(void) {
-	Event e;
-	event(&e);
+	flushimage(display, 1);
+	mouse = emouse();
 }
 
 void platform_deinit(void) {}
@@ -44,15 +44,11 @@ void
 mouseinit(void)
 {
 	einit(Emouse);
-	mouse = emouse();
 }
 
 void
 mousestat(int *x, int *y, char *down)
 {
-	if(ereadmouse(&mouse) < 0)
-		sysfatal("ereadmouse: %r");
-
 	*x = mouse.xy.x - screen->r.min.x;
 	*y = mouse.xy.y - screen->r.min.y;
 	*down = mouse.buttons;

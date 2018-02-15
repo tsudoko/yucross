@@ -148,7 +148,7 @@ tick(Stage *s)
 	mousestat(&mx, &my, &mbut);
 
 	if(mbut) {
-		printf("mouse click %d (%d, %d)\n", mbut, mx, my);
+		/* printf("mouse click %d (%d, %d)\n", mbut, mx, my); */
 		stageclick(s, mx, my);
 		if(won(s)) {
 			printf("stage clear\n");
@@ -183,10 +183,8 @@ main(void)
 	hintdraw(stage, tiles);
 	stagedraw(stage, tiles);
 
-	/* mousecallback(tick); */
-
-	/* while(platform_event())? */
 	while(running) {
+		platform_yield();
 		tick(stage);
 		stagedraw(stage, tiles);
 	}
