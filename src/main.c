@@ -161,7 +161,7 @@ int
 main(void)
 {
 	Stage *stage;
-	Sprite *tiles;
+	Sprite *tiles = malloc(sizeof *tiles);
 	int colors;
 	int i;
 
