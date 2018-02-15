@@ -35,7 +35,7 @@ drawhintcol(Stage *stage, Sprite *tiles, int *hints, int n, int x)
 	}
 }
 
-int
+void
 hintdraw(Stage *stage, Sprite *tiles)
 {
 	int ir = 0;
@@ -80,7 +80,7 @@ hintdraw(Stage *stage, Sprite *tiles)
 	free(row);
 }
 
-int
+void
 stagedraw(Stage *stage, Sprite *tiles)
 {
 
@@ -93,7 +93,7 @@ stagedraw(Stage *stage, Sprite *tiles)
 	}
 }
 
-int
+void
 stageclick(Stage *stage, int x, int y)
 {
 	int tilesize = 16; /* XXX */
