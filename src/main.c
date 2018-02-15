@@ -98,9 +98,8 @@ stagedraw(Stage *stage, Sprite *tiles)
 }
 
 void
-stageclick(Stage *stage, int x, int y)
+stageclick(Stage *stage, Sprite *tiles, int x, int y)
 {
-	int tilesize = 16; /* XXX */
 	char *tile;
 
 	if(x < stage->x || y < stage->y)
@@ -109,8 +108,8 @@ stageclick(Stage *stage, int x, int y)
 	x -= stage->x;
 	y -= stage->y;
 
-	x /= tilesize; /* XXX */
-	y /= tilesize; /* XXX */
+	x /= tiles->h;
+	y /= tiles->h;
 
 	if(x > stage->w || y > stage->h)
 		return;
@@ -139,7 +138,7 @@ deinit(Stage *stage) {
 }
 
 void
-tick(Stage *s)
+tick(Stage *s, Sprite *tiles)
 {
 
 	/* TODO: don't poll when there's a callback set?
@@ -149,7 +148,7 @@ tick(Stage *s)
 
 	if(mbut) {
 		/* printf("mouse click %d (%d, %d)\n", mbut, mx, my); */
-		stageclick(s, mx, my);
+		stageclick(s, tiles, mx, my);
 		if(won(s)) {
 			printf("stage clear\n");
 			deinit(s);
@@ -185,7 +184,7 @@ main(void)
 
 	while(running) {
 		platform_yield();
-		tick(stage);
+		tick(stage, tiles);
 		stagedraw(stage, tiles);
 	}
 
