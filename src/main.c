@@ -165,8 +165,8 @@ main(void)
 	platform_init();
 	mouseinit();
 	stage = newstage(12, 12);
-	colors = loadpal("res\\pink.pal");
-	loadspr("res\\tile.spr", tiles);
+	colors = loadpal("res/pink.pal");
+	loadspr("res/tile.spr", tiles);
 
 	srand(time(NULL));
 
