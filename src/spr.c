@@ -9,6 +9,8 @@ loadspr(char *path, Sprite *s)
 	int x, y;
 	int bufl = 0;
 	FILE *f = fopen(path, "rb");
+	if(f == NULL)
+		return -1;
 
 	if(fread(buf, 1, strlen("sprite "), f) != 7)
 		return -1;

@@ -15,6 +15,8 @@ loadpal(char *path)
 	             colors = -1;
 	long col = 0;
 	FILE *f = fopen(path, "rb");
+	if(f == NULL)
+		return -1;
 
 	if(fread(buf, 1, strlen("pal "), f) != 4)
 		return -1;
