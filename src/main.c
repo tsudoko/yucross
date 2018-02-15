@@ -85,6 +85,12 @@ hintdraw(Stage *stage, Sprite *tiles)
 }
 
 void
+drawstagetile(Stage *stage, Sprite *tiles, int x, int y)
+{
+	drawtile(stage->x+(x*tiles->h), stage->y+(y*tiles->h), tiles, stage->tiles[y*stage->w + x] ? 1 : 0);
+}
+
+void
 stagedraw(Stage *stage, Sprite *tiles)
 {
 
@@ -92,7 +98,7 @@ stagedraw(Stage *stage, Sprite *tiles)
 
 	for(y = 0; y < stage->h; y++) {
 		for(x = 0; x < stage->w; x++) {
-			drawtile(stage->x+(x*tiles->h), stage->y+(y*tiles->h), tiles, stage->tiles[y*stage->w + x] ? 1 : 0);
+			drawstagetile(stage, tiles, x, y);
 		}
 	}
 }
@@ -116,6 +122,7 @@ stageclick(Stage *stage, Sprite *tiles, int x, int y)
 
 	tile = &stage->tiles[y*stage->w + x];
 	*tile = *tile ? 0 : 1; /* XXX */
+	drawstagetile(stage, tiles, x, y);
 }
 
 int
@@ -189,7 +196,6 @@ main(void)
 	while(running) {
 		platform_yield();
 		tick(stage, tiles);
-		stagedraw(stage, tiles);
 	}
 
 	deinit(stage);
