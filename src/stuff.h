@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define	nelem(x)	(sizeof(x)/sizeof((x)[0]))
+
 enum {
 	SPR_UNCHECKED,
 	SPR_CHECKED,

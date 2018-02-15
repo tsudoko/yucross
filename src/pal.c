@@ -1,10 +1,10 @@
-/* #include "stuff.h" */
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "../platform.h"
+#include "stuff.h"
 
 int
 loadpal(char *path)
@@ -25,7 +25,7 @@ loadpal(char *path)
 		return -1;
 
 	do {
-		assert(blen <= (sizeof (buf) / sizeof *buf));
+		assert(blen <= nelem(buf));
 		buf[blen] = fgetc(f);
 	} while(buf[blen++] != '\n');
 	buf[blen] = '\0';

@@ -38,10 +38,10 @@ drawhintcol(Stage *stage, Sprite *tiles, int *hints, int n, int x)
 void
 hintdraw(Stage *stage, Sprite *tiles)
 {
-	int ir = 0;
 	int x, y;
-	char cons = 0;
-	int *row = malloc(sizeof (int) * stage->y);
+	int ir;
+	char cons;
+	int row[16];
 
 	for(y = 0; y < stage->h; y++) {
 		ir = 0;
@@ -53,11 +53,14 @@ hintdraw(Stage *stage, Sprite *tiles)
 				cons = 1;
 			} else if(cons) {
 				cons = 0;
+				assert(nelem(row) > ir);
 				ir++;
 				row[ir] = 0;
 			}
 		}
-		drawhintrow(stage, tiles, row, ir+(row[ir] ? 1 : 0), y);
+		if(row[ir])
+			ir++;
+		drawhintrow(stage, tiles, row, ir, y);
 	}
 
 	for(x = 0; x < stage->w; x++) {
@@ -70,14 +73,15 @@ hintdraw(Stage *stage, Sprite *tiles)
 				cons = 1;
 			} else if(cons) {
 				cons = 0;
+				assert(nelem(row) > ir);
 				ir++;
 				row[ir] = 0;
 			}
 		}
-		drawhintcol(stage, tiles, row, ir+(row[ir] ? 1 : 0), x);
+		if(row[ir])
+			ir++;
+		drawhintcol(stage, tiles, row, ir, x);
 	}
-
-	free(row);
 }
 
 void
