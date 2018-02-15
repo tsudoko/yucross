@@ -165,8 +165,12 @@ main(void)
 	int i;
 
 	running = 1;
+	if(mouseinit() < 0) {
+		fprintf(stderr, "mouse initialization failed\n");
+		return -1;
+	}
 	platform_init();
-	mouseinit();
+
 	stage = newstage(12, 12);
 	colors = loadpal("res/pink.pal");
 	loadspr("res/tile.spr", tiles);
