@@ -117,7 +117,7 @@ stageclick(Stage *stage, Sprite *tiles, int x, int y)
 	x /= tiles->h;
 	y /= tiles->h;
 
-	if(x > stage->w || y > stage->h)
+	if(x >= stage->w || y >= stage->h)
 		return;
 
 	tile = &stage->tiles[y*stage->w + x];
