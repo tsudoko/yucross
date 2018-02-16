@@ -183,7 +183,16 @@ main(void)
 
 	stage = newstage(12, 12);
 	colors = loadpal("res/pink.pal");
-	loadspr("res/tile.spr", tiles);
+	if(colors < 0) {
+		fprintf(stderr, "failed to load palette file\n");
+		deinit(stage);
+		return -1;
+	}
+	if(loadspr("res/tile.spr", tiles) < 0) {
+		fprintf(stderr, "failed to load tileset file\n");
+		deinit(stage);
+		return -1;
+	}
 
 	srand(time(NULL));
 
