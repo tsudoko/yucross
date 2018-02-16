@@ -182,7 +182,7 @@ main(void)
 	}
 
 	stage = newstage(12, 12);
-	colors = loadpal("res/pink.pal");
+	colors = loadpal("res/binbows.pal");
 	if(colors < 0) {
 		fprintf(stderr, "failed to load palette file\n");
 		deinit(stage);
