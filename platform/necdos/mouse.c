@@ -16,13 +16,19 @@ mouseinit(void)
 	if(!regs.x.ax)
 		return -1;
 
-	regs.x.ax = 1;
-	int86(0x33, &regs, &regs);
 	return 0;
 }
 
 void
-mousedeinit(void)
+showcursor(void)
+{
+	union REGS regs;
+	regs.x.ax = 1;
+	int86(0x33, &regs, &regs);
+}
+
+void
+hidecursor(void)
 {
 	union REGS regs;
 	regs.x.ax = 2;

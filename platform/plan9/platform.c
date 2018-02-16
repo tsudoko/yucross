@@ -36,7 +36,8 @@ platform_yield(void) {
 }
 
 void platform_deinit(void) {}
-void mousedeinit(void) {}
+void showcursor(void) {}
+void hidecursor(void) {}
 void mousecallback(void (*f)(void)) {}
 int keypoll(void) { return 0; }
 

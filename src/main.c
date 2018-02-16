@@ -141,7 +141,7 @@ deinit(Stage *stage) {
 	delstage(stage);
 	/* TODO: free sprites (tiles, bg) */
 	platform_deinit();
-	mousedeinit();
+	hidecursor();
 	running = 0;
 }
 
@@ -213,6 +213,7 @@ main(void)
 	drawsprtiled(bg, 0, 0, platform_screenw, platform_screenh);
 	hintdraw(stage, tiles);
 	stagedraw(stage, tiles);
+	showcursor();
 
 	while(running) {
 		platform_yield();
