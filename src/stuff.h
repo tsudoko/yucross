@@ -31,4 +31,5 @@ int loadpal(char *);
 int loadspr(char *, Sprite *);
 
 void drawspr(int, int, Sprite *);
+void drawsprtiled(Sprite *, int, int, int, int);
 void drawtile(int, int, Sprite *, int);

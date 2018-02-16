@@ -1,7 +1,6 @@
 #include "../platform.h"
 #include "stuff.h"
 
-/* TODO: split into drawbg, drawtile */
 void
 drawspr(int sx, int sy, Sprite *s)
 {
@@ -13,6 +12,21 @@ drawspr(int sx, int sy, Sprite *s)
 				continue;
 
 			drawpixel(sx+x, sy+y, s->data[y*s->w + x]);
+		}
+	}
+}
+
+void
+drawsprtiled(Sprite *s, int x1, int y1, int x2, int y2)
+{
+	int x, y;
+
+	for(y = y1; y < y2; y++) {
+		for(x = x1; x < x2; x++) {
+			if(!s->data[(y%s->h)*s->w + (x%s->w)])
+				continue;
+
+			drawpixel(x, y, s->data[(y%s->h)*s->w + (x%s->w)]);
 		}
 	}
 }

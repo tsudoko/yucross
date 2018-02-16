@@ -139,6 +139,7 @@ won(Stage *stage)
 void
 deinit(Stage *stage) {
 	delstage(stage);
+	/* TODO: free sprites (tiles, bg) */
 	platform_deinit();
 	mousedeinit();
 	running = 0;
@@ -170,6 +171,7 @@ main(void)
 {
 	Stage *stage;
 	Sprite *tiles = malloc(sizeof *tiles);
+	Sprite *bg = malloc(sizeof *bg);
 	int colors;
 	int i;
 
@@ -182,7 +184,7 @@ main(void)
 	}
 
 	stage = newstage(12, 12);
-	colors = loadpal("res/binbows.pal");
+	colors = loadpal("res/pink.pal");
 	if(colors < 0) {
 		fprintf(stderr, "failed to load palette file\n");
 		deinit(stage);
@@ -190,6 +192,12 @@ main(void)
 	}
 	if(loadspr("res/tile.spr", tiles) < 0) {
 		fprintf(stderr, "failed to load tileset file\n");
+		deinit(stage);
+		return -1;
+	}
+	if(loadspr("res/bg.spr", bg) < 0) {
+		fprintf(stderr, "failed to load background file\n");
+		free(tiles);
 		deinit(stage);
 		return -1;
 	}
@@ -202,6 +210,7 @@ main(void)
 	stage->x = platform_screenw/2 - (stage->w*tiles->h)/2;
 	stage->y = platform_screenh/2 - (stage->h*tiles->h)/2;
 
+	drawsprtiled(bg, 0, 0, platform_screenw, platform_screenh);
 	hintdraw(stage, tiles);
 	stagedraw(stage, tiles);
 
