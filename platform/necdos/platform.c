@@ -67,3 +67,12 @@ mousecallback(void (*func)(void))
 	regs.x.es = FP_OFF(farfunc);
 	regs.x.dx = FP_SEG(farfunc);
 }
+
+int
+keypoll(void)
+{
+	union REGS regs;
+	regs.h.ah = 0;
+	int86(0x18, &regs, &regs);
+	return regs.h.ah;
+}
