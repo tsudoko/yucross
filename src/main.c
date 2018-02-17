@@ -10,6 +10,9 @@ char mbut;
 char mdown = 0;
 char clickedtile = 0;
 char running;
+Stage *stage;
+Sprite *tiles;
+Sprite *bg;
 
 void
 drawhintrow(Stage *stage, Sprite *tiles, int *hints, int n, int y)
@@ -179,12 +182,22 @@ tick(Stage *s, Sprite *tiles)
 	}
 }
 
+void
+platform_resized(void)
+{
+	stage->x = platform_screenw/2 - (stage->w*tiles->h)/2;
+	stage->y = platform_screenh/2 - (stage->h*tiles->h)/2;
+
+	drawsprtiled(bg, 0, 0, platform_screenw, platform_screenh);
+	hintdraw(stage, tiles);
+	stagedraw(stage, tiles);
+}
+
 int
 main(void)
 {
-	Stage *stage;
-	Sprite *tiles = malloc(sizeof *tiles);
-	Sprite *bg = malloc(sizeof *bg);
+	tiles = malloc(sizeof *tiles);
+	bg = malloc(sizeof *bg);
 	int colors;
 	int i;
 
@@ -220,12 +233,7 @@ main(void)
 	for(i = 0; i < stage->w*stage->h; i++)
 		stage->pattern[i] = rand()%2;
 
-	stage->x = platform_screenw/2 - (stage->w*tiles->h)/2;
-	stage->y = platform_screenh/2 - (stage->h*tiles->h)/2;
-
-	drawsprtiled(bg, 0, 0, platform_screenw, platform_screenh);
-	hintdraw(stage, tiles);
-	stagedraw(stage, tiles);
+	platform_resized();
 	showcursor();
 
 	while(running) {

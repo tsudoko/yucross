@@ -12,3 +12,6 @@ void showcursor(void);
 void hidecursor(void);
 void mousestat(int *x, int *y, char *down);
 void mousecallback(void (*f)(void));
+
+/* provided by the application */
+void platform_resized(void);

@@ -5,6 +5,8 @@
 #include <draw.h>
 #include <event.h>
 
+#include "../../platform.h"
+
 static Image *pal[256];
 static Mouse mouse;
 
@@ -80,4 +82,6 @@ eresized(int new)
 
 	platform_screenw = Dx(screen->r);
 	platform_screenh = Dy(screen->r);
+
+	platform_resized();
 }
