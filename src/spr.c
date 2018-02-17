@@ -19,7 +19,6 @@ loadspr(char *path, Sprite *s)
 		return -1;
 
 	fscanf(f, "%d %d ", &(s->w), &(s->h));
-	printf("%s: %dx%d\n", path, s->w, s->h);
 	assert(s->w && s->h);
 	s->data = malloc(s->w*s->h);
 
