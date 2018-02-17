@@ -7,6 +7,8 @@
 
 int mx, my;
 char mbut;
+char mdown = 0;
+char clickedtile = 0;
 char running;
 
 void
@@ -121,7 +123,16 @@ stageclick(Stage *stage, Sprite *tiles, int x, int y)
 		return;
 
 	tile = &stage->tiles[y*stage->w + x];
-	*tile = *tile ? 0 : 1; /* XXX */
+
+	if(!mdown) {
+		mdown = 1;
+		clickedtile = *tile;
+	}
+
+	if(*tile != clickedtile)
+		return;
+
+	*tile = !clickedtile;
 	drawstagetile(stage, tiles, x, y);
 }
 
@@ -163,6 +174,8 @@ tick(Stage *s, Sprite *tiles)
 			printf("stage clear\n");
 			deinit(s);
 		}
+	} else if(mdown) {
+		mdown = 0;
 	}
 }
 
