@@ -196,10 +196,11 @@ platform_resized(void)
 int
 main(void)
 {
-	tiles = malloc(sizeof *tiles);
-	bg = malloc(sizeof *bg);
 	int colors;
 	int i;
+
+	tiles = malloc(sizeof *tiles);
+	bg = malloc(sizeof *bg);
 
 	running = 1;
 	platform_init();
