@@ -1,4 +1,13 @@
-.PHONY: necdos
+CC = lcc
+LD = lld
 
-necdos: platform/necdos/gdc16.c platform/necdos/platform.c src/draw.c src/res.c src/stage.c src/main.c
-	lcc platform\necdos\gdc16.c platform\necdos\platform.c src\draw.c src\res.c src\stage.c src\main.c -o asdf.exe
+!include mk/$(PLATFORM).mk
+#!include mk/$(CC).mk
+!include mk/common.mk
+OFILES = $(PLATFORM_OFILES) $(OFILES)
+
+.c.$O:
+	$(CC) $(CFLAGS) -c $<
+
+$(TARG)$(EXE): $(OFILES)
+	$(CC) -o $@ $(CFLAGS) $(OFILES)
