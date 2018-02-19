@@ -1,17 +1,16 @@
-extern const int platform_colors;
-extern const int platform_screenw;
-extern const int platform_screenh;
+extern const int pcolors;
+extern const int pscreenw;
+extern const int pscreenh;
 
-void platform_init(void);
-void platform_deinit(void);
-void platform_yield(void);
-void drawpixel(int x, int y, unsigned char color);
-void setcolor(unsigned char index, unsigned long color);
-int mouseinit(void);
-void showcursor(void);
-void hidecursor(void);
-void mousestat(int *x, int *y, char *down);
-void mousecallback(void (*f)(void));
+void pinit(void);
+void pdeinit(void);
+void pyield(void);
+void pdrawpixel(int x, int y, unsigned char color);
+void psetcolor(unsigned char index, unsigned long color);
+int  pmouseinit(void);
+void pshowcursor(void);
+void phidecursor(void);
+void pmousestat(int *x, int *y, char *down);
 
 /* provided by the application */
-void platform_resized(void);
+void presized(void);

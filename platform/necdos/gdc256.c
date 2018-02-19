@@ -13,12 +13,12 @@
 
 unsigned char far *PIXELS     = (unsigned char far *)0xa8000000;
 unsigned int  far *MMIO_BANK1 = (unsigned int far *) 0xe0000004;
-const int platform_screenw = 640; /* XXX */
-const int platform_screenh = 400; /* XXX */
-const int platform_colors = 256;
+const int pscreenw = 640; /* XXX */
+const int pscreenh = 400; /* XXX */
+const int pcolors = 256;
 
 void
-platform_init(void)
+pinit(void)
 {
 	outp8(0x6a, 0x07);
 	outp8(0x6a, 0x21);
@@ -28,14 +28,14 @@ platform_init(void)
 }
 
 void
-platform_deinit(void)
+pdeinit(void)
 {
 	outp8(0xa2, 0x0c); /* stop graphics */
 	outp8(0x62, 0x0d); /* start text */
 }
 
 void
-setcolor(unsigned char index, unsigned long color)
+psetcolor(unsigned char index, unsigned long color)
 {
 	outp8(0xa8, index);
 	outp8(0xac, (color >> 16) & 0xff);
@@ -44,7 +44,7 @@ setcolor(unsigned char index, unsigned long color)
 }
 
 void
-drawpixel(int x, int y, unsigned char color)
+pdrawpixel(int x, int y, unsigned char color)
 {
 	unsigned long pos = 640L * y + x;
 	*MMIO_BANK1 = (unsigned int)(pos >> 15);

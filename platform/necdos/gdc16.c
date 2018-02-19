@@ -5,12 +5,12 @@ unsigned char far *PLANE0 = (unsigned char far *)MK_FP(0xa800, 0);
 unsigned char far *PLANE1 = (unsigned char far *)MK_FP(0xb000, 0);
 unsigned char far *PLANE2 = (unsigned char far *)MK_FP(0xb800, 0);
 unsigned char far *PLANE3 = (unsigned char far *)MK_FP(0xe000, 0);
-const int platform_screenw = 640; /* XXX */
-const int platform_screenh = 400; /* XXX */
-const int platform_colors = 16;
+const int pscreenw = 640; /* XXX */
+const int pscreenh = 400; /* XXX */
+const int pcolors = 16;
 
 void
-platform_init(void)
+pinit(void)
 {
 	outp8(0x6a, 0x01); /* 16 color mode */
 	outp8(0x68, 1<<3|0); /* mode F/F bit 3 - column width (80 columns) */
@@ -21,14 +21,14 @@ platform_init(void)
 }
 
 void
-platform_deinit(void)
+pdeinit(void)
 {
 	outp8(0xa2, 0x0c); /* stop graphics */
 	outp8(0x62, 0x0d); /* start text */
 }
 
 void
-setcolor(unsigned char index, unsigned long color)
+psetcolor(unsigned char index, unsigned long color)
 {
 	outp8(0xa8, index);
 	outp8(0xac, ((color >> 16) & 0xff) >> 4);
@@ -37,7 +37,7 @@ setcolor(unsigned char index, unsigned long color)
 }
 
 void
-drawpixel(int x, int y, unsigned char color)
+pdrawpixel(int x, int y, unsigned char color)
 {
 	unsigned long pos = 640L * y + x;
 

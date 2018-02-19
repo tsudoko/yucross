@@ -10,9 +10,9 @@
 static Image *pal[256];
 static Mouse mouse;
 
-int platform_colors = 256;
-int platform_screenw;
-int platform_screenh;
+int pcolors = 256;
+int pscreenw;
+int pscreenh;
 
 void
 sysfatal(char *s)
@@ -22,36 +22,35 @@ sysfatal(char *s)
 }
 
 void
-platform_init(void)
+pinit(void)
 {
 	if(initdraw(0, 0, "asdf") < 0)
 		sysfatal("initdraw: %r");
 
-	platform_screenw = Dx(screen->r);
-	platform_screenh = Dy(screen->r);
+	pscreenw = Dx(screen->r);
+	pscreenh = Dy(screen->r);
 }
 
 void
-platform_yield(void) {
+pyield(void) {
 	flushimage(display, 1);
 	mouse = emouse();
 }
 
-void platform_deinit(void) {}
-void showcursor(void) {}
-void hidecursor(void) {}
-void mousecallback(void (*f)(void)) {}
-int keypoll(void) { return 0; }
+void pdeinit(void) {}
+void pshowcursor(void) {}
+void phidecursor(void) {}
+void pmousecallback(void (*f)(void)) {}
 
 int
-mouseinit(void)
+pmouseinit(void)
 {
 	einit(Emouse);
 	return 0;
 }
 
 void
-mousestat(int *x, int *y, char *down)
+pmousestat(int *x, int *y, char *down)
 {
 	*x = mouse.xy.x - screen->r.min.x;
 	*y = mouse.xy.y - screen->r.min.y;
@@ -59,13 +58,13 @@ mousestat(int *x, int *y, char *down)
 }
 
 void
-drawpixel(int x, int y, uchar color)
+pdrawpixel(int x, int y, uchar color)
 {
 	draw(screen, Rect(screen->r.min.x + x, screen->r.min.y + y, screen->r.min.x + x + 1, screen->r.min.y + y + 1), pal[color], nil, ZP);
 }
 
 void
-setcolor(uchar i, ulong color)
+psetcolor(uchar i, ulong color)
 {
 	if(pal[i] && freeimage(pal[i]) < 0)
 		sysfatal("freeimage: %r");
@@ -80,8 +79,8 @@ eresized(int new)
 	if(new && getwindow(display, Refnone) < 0)
 		sysfatal("getwindow: %r");
 
-	platform_screenw = Dx(screen->r);
-	platform_screenh = Dy(screen->r);
+	pscreenw = Dx(screen->r);
+	pscreenh = Dy(screen->r);
 
-	platform_resized();
+	presized();
 }

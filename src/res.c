@@ -42,7 +42,7 @@ loadpal(char *path)
 		col = strtol(buf, NULL, 16);
 		blen = 0;
 		if(curcol) /* color 0 is transparent */
-			setcolor(curcol, col);
+			psetcolor(curcol, col);
 		curcol++;
 	} while(curcol < colors);
 

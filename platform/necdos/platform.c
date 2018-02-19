@@ -2,12 +2,12 @@
 
 #include "../../platform.h"
 
-void platform_yield(void) {}
+void pyield(void) {}
 
 /* only the NEC mouse driver is supported */
 
 int
-mouseinit(void)
+pmouseinit(void)
 {
 	union REGS regs;
 	regs.x.ax = 0;
@@ -20,7 +20,7 @@ mouseinit(void)
 }
 
 void
-showcursor(void)
+pshowcursor(void)
 {
 	union REGS regs;
 	regs.x.ax = 1;
@@ -28,7 +28,7 @@ showcursor(void)
 }
 
 void
-hidecursor(void)
+phidecursor(void)
 {
 	union REGS regs;
 	regs.x.ax = 2;
@@ -36,7 +36,7 @@ hidecursor(void)
 }
 
 void
-mousestat(int *x, int *y, char *down)
+pmousestat(int *x, int *y, char *down)
 {
 	union REGS regs;
 	regs.x.ax = 3;
@@ -53,7 +53,7 @@ mousestat(int *x, int *y, char *down)
 }
 
 void
-mousecallback(void (*func)(void))
+pmousecallback(void (*func)(void))
 {
 
 	union REGS regs;
@@ -66,13 +66,4 @@ mousecallback(void (*func)(void))
 
 	regs.x.es = FP_OFF(farfunc);
 	regs.x.dx = FP_SEG(farfunc);
-}
-
-int
-keypoll(void)
-{
-	union REGS regs;
-	regs.h.ah = 0;
-	int86(0x18, &regs, &regs);
-	return regs.h.ah;
 }

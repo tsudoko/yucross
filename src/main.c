@@ -154,8 +154,8 @@ void
 deinit(Stage *stage) {
 	delstage(stage);
 	/* TODO: free sprites (tiles, bg) */
-	platform_deinit();
-	hidecursor();
+	pdeinit();
+	phidecursor();
 	running = 0;
 }
 
@@ -166,7 +166,7 @@ tick(Stage *s, Sprite *tiles)
 	/* TODO: don't poll when there's a callback set?
          *       not sure if we want to have that global state anyway though
          */
-	mousestat(&mx, &my, &mbut);
+	pmousestat(&mx, &my, &mbut);
 
 	if(mbut) {
 		if(mbut & 4) /* debug exit */
@@ -183,12 +183,12 @@ tick(Stage *s, Sprite *tiles)
 }
 
 void
-platform_resized(void)
+presized(void)
 {
-	stage->x = platform_screenw/2 - (stage->w*tiles->h)/2;
-	stage->y = platform_screenh/2 - (stage->h*tiles->h)/2;
+	stage->x = pscreenw/2 - (stage->w*tiles->h)/2;
+	stage->y = pscreenh/2 - (stage->h*tiles->h)/2;
 
-	drawsprtiled(bg, 0, 0, platform_screenw, platform_screenh);
+	drawsprtiled(bg, 0, 0, pscreenw, pscreenh);
 	hintdraw(stage, tiles);
 	stagedraw(stage, tiles);
 }
@@ -203,10 +203,10 @@ main(void)
 	bg = malloc(sizeof *bg);
 
 	running = 1;
-	platform_init();
-	if(mouseinit() < 0) {
+	pinit();
+	if(pmouseinit() < 0) {
 		fprintf(stderr, "mouse initialization failed\n");
-		platform_deinit();
+		pdeinit();
 		return -1;
 	}
 
@@ -234,11 +234,11 @@ main(void)
 	for(i = 0; i < stage->w*stage->h; i++)
 		stage->pattern[i] = rand()%2;
 
-	platform_resized();
-	showcursor();
+	presized();
+	pshowcursor();
 
 	while(running) {
-		platform_yield();
+		pyield();
 		tick(stage, tiles);
 	}
 
