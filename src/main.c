@@ -22,6 +22,7 @@ drawhintrow(Stage *stage, Sprite *tiles, int *hints, int n, int y)
 	assert(x1 >= 0);
 
 	for(i = 0; i < n; i++) {
+		assert(hints[i] >= 1 && hints[i] <= 12);
 		drawtile(x1 + i*16, stage->y + y*16, tiles, SPR_GUIDE);
 		drawtile(x1 + i*16, stage->y + y*16, tiles, SPR_NUMBER + hints[i]);
 	}
@@ -35,6 +36,7 @@ drawhintcol(Stage *stage, Sprite *tiles, int *hints, int n, int x)
 	assert(y1 >= 0);
 
 	for(i = 0; i < n; i++) {
+		assert(hints[i] >= 1 && hints[i] <= 12);
 		drawtile(stage->x + x*16, y1 + i*16, tiles, SPR_GUIDE);
 		drawtile(stage->x + x*16, y1 + i*16, tiles, SPR_NUMBER + hints[i]);
 	}
