@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "stuff.h"
 
 Stage *

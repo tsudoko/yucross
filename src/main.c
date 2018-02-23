@@ -1,8 +1,9 @@
 #include <assert.h>
 #include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "../platform.h"
-
 #include "stuff.h"
 
 int mx, my;

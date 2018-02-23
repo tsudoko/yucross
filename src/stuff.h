@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #define	nelem(x)	(sizeof(x)/sizeof((x)[0]))
 
 enum {
