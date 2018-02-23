@@ -32,7 +32,8 @@ pinit(void)
 }
 
 void
-pyield(void) {
+pyield(void)
+{
 	flushimage(display, 1);
 	mouse = emouse();
 }

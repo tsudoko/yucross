@@ -154,7 +154,8 @@ won(Stage *stage)
 }
 
 void
-deinit(Stage *stage) {
+deinit(Stage *stage)
+{
 	delstage(stage);
 	/* TODO: free sprites (tiles, bg) */
 	pdeinit();
