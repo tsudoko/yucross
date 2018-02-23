@@ -1,3 +1,9 @@
+# object files
 *.o
+*.[012568kqv]
 *.[Oo][Bb][Jj]
+
+# executables
+*.out
 *.[Ee][Xx][Ee]
+yucross
