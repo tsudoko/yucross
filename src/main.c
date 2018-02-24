@@ -154,7 +154,7 @@ won(Stage *stage)
 }
 
 void
-deinit(Stage *stage)
+deinit(void)
 {
 	delstage(stage);
 	/* TODO: free sprites (tiles, bg) */
@@ -164,7 +164,7 @@ deinit(Stage *stage)
 }
 
 void
-tick(Stage *s, Sprite *tiles)
+tick(void)
 {
 
 	/* TODO: don't poll when there's a callback set?
@@ -174,12 +174,12 @@ tick(Stage *s, Sprite *tiles)
 
 	if(mbut) {
 		if(mbut & 4) /* debug exit */
-			deinit(s);
+			deinit();
 		/* printf("mouse click %d (%d, %d)\n", mbut, mx, my); */
-		stageclick(s, tiles, mx, my);
-		if(won(s)) {
+		stageclick(stage, tiles, mx, my);
+		if(won(stage)) {
 			printf("stage clear\n");
-			deinit(s);
+			deinit();
 		}
 	} else if(mdown) {
 		mdown = 0;
@@ -218,18 +218,18 @@ main(void)
 	colors = loadpal("res/pink.pal");
 	if(colors < 0) {
 		fprintf(stderr, "failed to load palette file\n");
-		deinit(stage);
+		deinit();
 		return -1;
 	}
 	if(loadspr("res/tile.spr", tiles) < 0) {
 		fprintf(stderr, "failed to load tileset file\n");
-		deinit(stage);
+		deinit();
 		return -1;
 	}
 	if(loadspr("res/bg.spr", bg) < 0) {
 		fprintf(stderr, "failed to load background file\n");
 		free(tiles);
-		deinit(stage);
+		deinit();
 		return -1;
 	}
 
@@ -243,9 +243,9 @@ main(void)
 
 	while(running) {
 		pyield();
-		tick(stage, tiles);
+		tick();
 	}
 
-	deinit(stage);
+	deinit();
 	return 0;
 }
