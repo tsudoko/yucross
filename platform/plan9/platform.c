@@ -41,7 +41,6 @@ pyield(void)
 void pdeinit(void) {}
 void pshowcursor(void) {}
 void phidecursor(void) {}
-void pmousecallback(void (*f)(void)) {}
 
 int
 pmouseinit(void)

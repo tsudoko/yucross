@@ -51,19 +51,3 @@ pmousestat(int *x, int *y, char *down)
 	if(down)
 		*down = ((regs.x.bx & 1) << 2) | regs.x.ax & 1;
 }
-
-void
-pmousecallback(void (*func)(void))
-{
-
-	union REGS regs;
-	void (far *farfunc)(void);
-
-	farfunc = func;
-	regs.x.ax = 0x0c;
-	/*regs.x.cx = 1<<1; /* left button press */
-	regs.x.cx = 0;
-
-	regs.x.es = FP_OFF(farfunc);
-	regs.x.dx = FP_SEG(farfunc);
-}
